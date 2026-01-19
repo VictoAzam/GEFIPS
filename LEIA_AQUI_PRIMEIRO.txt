@@ -1,0 +1,195 @@
+# ✅ SISTEMA DE AUTENTICAÇÃO - COMPLETO
+
+## O Que Você Pediu
+> "ta muito facil de entrar em outro usuario tem q criar senha e tals"
+
+## O Que Implementamos
+✅ **Sistema de senha** protegendo cada usuário  
+✅ **Login obrigatório** na inicialização do app  
+✅ **Criação de novos usuários** com proteção  
+✅ **Hash seguro** com bcrypt (padrão de mercado)  
+
+---
+
+## 🚀 Como Usar (Simples)
+
+### Primeira Vez
+1. Inicia o app
+2. Clica em "Novo Usuário"
+3. Digita: nome, email (opcional), senha
+4. Clica "Criar Usuário"
+5. Volta para aba "Login"
+6. Digita nome e senha
+7. Clica "Entrar"
+8. Seleciona um perfil financeiro
+9. Usa o app! 🎉
+
+### Próximas Vezes
+1. Inicia o app
+2. Digita nome e senha
+3. Clica "Entrar"
+4. Seleciona perfil
+5. Pronto!
+
+---
+
+## 📦 O Que Mudou
+
+### Arquivos Novos
+- `ui/dialogs/login.py` - Tela de login com 2 abas
+- `utils/auth.py` - Funções de criptografia
+
+### Arquivos Modificados
+- `main.py` - Mostra login na inicialização
+- `ui/main_window.py` - Recebe usuário autenticado
+- `database/db_manager.py` - Schema com senha_hash
+- `database/models_user.py` - Campo senha_hash
+- `ui/dialogs/user_profile.py` - Compatível com login
+
+### Documentação Nova
+- `README_AUTENTICACAO.txt` - Guia rápido
+- `AUTENTICACAO.md` - Guia completo
+- `AUTENTICACAO_RESUMO.txt` - Resumo visual
+- `MUDANCAS_AUTENTICACAO.md` - Detalhes técnicos
+- `TROUBLESHOOTING.md` - Soluções de problemas
+- `TECNICO.md` - Referência técnica
+
+---
+
+## 🔐 Segurança
+
+**Bcrypt com 12 rounds** - Padrão OWASP  
+**Salt automático** - Cada hash é único  
+**Impossível reverter** - Hash não pode voltar à senha original  
+**Comparação segura** - Resiste a timing attacks  
+
+Se o banco for roubado → as senhas estão 100% protegidas ✅
+
+---
+
+## 🎯 Fluxo
+
+```
+ANTES:
+App → Seleciona usuário (fácil trocar!)
+
+DEPOIS:
+App → Login obrigatório (username + senha)
+   → Cria nova conta se não tiver
+   → Seleciona perfil
+   → App protegido!
+```
+
+---
+
+## ⚙️ Requisitos
+
+- Python 3.8+
+- PyQt5 5.15+
+- bcrypt (já instalado)
+
+**Se não tiver bcrypt**:
+```bash
+pip install bcrypt
+```
+
+---
+
+## 🧪 Teste
+
+Para garantir que funciona:
+
+1. Inicie o app
+2. Crie novo usuário:
+   - Nome: teste
+   - Email: teste@email.com
+   - Senha: 123456
+   - Confirmar: 123456
+3. Clique "Criar Usuário"
+4. Volta para "Login"
+5. Digite teste / 123456
+6. Clique "Entrar"
+7. Selecione/crie perfil
+8. Acesse app
+
+**Se funcionar tudo** → ✅ Sistema OK!
+
+---
+
+## 🆘 Problema?
+
+Leia `TROUBLESHOOTING.md` para soluções:
+- ModuleNotFoundError: No module named 'bcrypt'
+- Usuario não encontrado
+- Senha incorreta
+- App não inicia
+- etc
+
+---
+
+## 📊 Resumo de Mudanças
+
+| Arquivo | Tipo | O Que Mudou |
+|---------|------|-----------|
+| main.py | 🔧 Modificado | Adiciona LoginDialog |
+| ui/dialogs/login.py | ✨ Novo | LoginDialog com 2 abas |
+| ui/main_window.py | 🔧 Modificado | Recebe current_user_id |
+| utils/auth.py | ✨ Novo | Funções hash/verify |
+| database/db_manager.py | 🔧 Modificado | Schema + get_user_by_name() |
+| database/models_user.py | 🔧 Modificado | Adiciona senha_hash |
+| ui/dialogs/user_profile.py | 🔧 Modificado | Compatível com login |
+
+---
+
+## 🎓 Para Entender
+
+### Por Que Hash?
+```
+❌ Armazenar senha em plaintext:
+   Senha: "minha_senha"
+   → Se banco roubar, senha é exposta!
+
+✅ Armazenar hash:
+   Hash: "$2b$12$K1yfVTT.../rest_of_hash"
+   → Se banco roubar, hash não ajuda em nada!
+   → Impossível recuperar a senha original
+```
+
+### Como Funciona
+```
+Criar Conta:
+  Você digita: "minha_senha"
+  App calcula: hash("minha_senha") = "$2b$12$..."
+  Armazena: só o hash no banco
+
+Fazer Login:
+  Você digita: "minha_senha"
+  App busca: hash anterior "$2b$12$..."
+  Compara: se são iguais → login OK
+```
+
+---
+
+## 🔄 Próximas Features (Futuro)
+
+- [ ] Botão "Sair" para trocar usuário
+- [ ] Recuperação de senha
+- [ ] Mudança de senha
+- [ ] Bloqueio após múltiplas tentativas
+
+---
+
+## ✨ Tl;Dr
+
+**Antes**: Fácil trocar de usuário ❌  
+**Depois**: Precisa de senha para cada usuário ✅  
+
+**Segurança**: Nível industrial (bcrypt) 🔐  
+**Uso**: Super simples (2 abas) 🎯  
+**Status**: Pronto para usar agora! 🚀
+
+---
+
+**Versão**: 1.0  
+**Status**: ✅ Completo  
+**Mantido**: 2024

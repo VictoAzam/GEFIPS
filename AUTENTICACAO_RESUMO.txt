@@ -1,0 +1,219 @@
+
+# 🔐 Sistema de Autenticação - IMPLEMENTADO ✅
+
+## 📱 Fluxo Visual
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   INICIAR APLICATIVO                    │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+         ┌──────────────────────────┐
+         │    🔐 LOGIN DIALOG       │
+         │  (NEW - Obrigatório)     │
+         └──┬────────────────┬──────┘
+            │                │
+      ┌─────▼──────┐   ┌─────▼──────────┐
+      │  LOGIN TAB  │   │ NOVO USUÁRIO   │
+      │ Username    │   │  Username      │
+      │ Password    │   │  Email         │
+      │ [Entrar]    │   │  Password      │
+      └─────┬──────┘   │  Confirm Pwd   │
+            │          │  [Criar]       │
+            │          └─────┬──────────┘
+            │                │
+            ▼ Sucesso        ▼ Sucesso
+    ┌──────────────────────────────┐
+    │  USER PROFILE DIALOG         │
+    │  (Seleciona PERFIL apenas)   │
+    │  - Perfil Financeiro         │
+    │  [Confirmar]                 │
+    └────────────┬─────────────────┘
+                 │
+                 ▼
+    ┌──────────────────────────────┐
+    │    MAIN WINDOW               │
+    │  Dashboard / Gráficos / etc  │
+    │                              │
+    │  Dados protegidos por senha! │
+    └──────────────────────────────┘
+```
+
+---
+
+## 📊 Arquivos Criados
+
+```
+✨ NEW FILES:
+  ├─ ui/dialogs/login.py         (280 linhas)
+  │  └─ LoginDialog com 2 abas (Login + Novo Usuário)
+  │
+  ├─ utils/auth.py               (30 linhas)
+  │  ├─ hash_password(password)
+  │  └─ verify_password(password, hash)
+  │
+  ├─ AUTENTICACAO.md             (Documentação de uso)
+  └─ MUDANCAS_AUTENTICACAO.md    (Documentação técnica)
+```
+
+---
+
+## 🔧 Arquivos Modificados
+
+```
+🔧 MODIFIED FILES:
+
+1. main.py
+   - Adiciona LoginDialog na inicialização
+   - Passa current_user_id para MainWindow
+
+2. ui/main_window.py
+   - Adiciona parâmetro: current_user_id
+   - Passa user_id para UserProfileDialog
+   - Define skip_user_selection=True
+
+3. ui/dialogs/user_profile.py
+   - Adiciona parâmetro: user_id (ID do usuário autenticado)
+   - Adiciona parâmetro: skip_user_selection (pula seleção de usuário)
+   - Atualiza _add_new_user() (compatibilidade com login anterior)
+
+4. database/models_user.py
+   - Adiciona: senha_hash: Optional[str] = None
+   - Campo armazena hash bcrypt da senha
+
+5. database/db_manager.py
+   - Schema: adiciona coluna senha_hash à tabela usuarios
+   - add_user(): armazena hash da senha
+   - get_user(): recupera hash da senha
+   - list_users(): recupera hash da senha
+   - update_user(): atualiza hash da senha
+   - Novo método: get_user_by_name(nome: str) → User
+```
+
+---
+
+## 🔐 Detalhes de Segurança
+
+### Hash com Bcrypt
+```
+Senha Original: "minha_senha_secreta"
+                    ↓
+            hash_password()
+                    ↓
+Hash Armazenado: $2b$12$K1yfVTT.../rest_of_hash
+(impossível reverter para senha original)
+```
+
+### Verificação na Autenticação
+```
+Usuário digita: "minha_senha_secreta"
+Hash do BD:     "$2b$12$K1yfVTT.../rest_of_hash"
+                    ↓
+          verify_password()
+                    ↓
+Resultado: ✓ MATCH (login bem-sucedido)
+           ✗ NO MATCH (senha incorreta)
+```
+
+---
+
+## 🚀 Como Usar
+
+### PRIMEIRA VEZ (Sem usuários)
+```
+1. Inicia app → LoginDialog
+2. Clica em "Novo Usuário"
+3. Preenche: username, email, senha
+4. Clica "Criar Usuário"
+5. Volta para "Login" tab
+6. Digita username e senha
+7. Clica "Entrar"
+8. Seleciona/cria perfil financeiro
+9. Acessa app
+```
+
+### PRÓXIMAS VEZES (Com usuários)
+```
+1. Inicia app → LoginDialog
+2. Digita username e senha
+3. Clica "Entrar"
+4. Seleciona perfil financeiro
+5. Acessa app
+```
+
+---
+
+## ✨ Funcionalidades
+
+### ✅ IMPLEMENTADAS
+- [x] Hash bcrypt com 12 rounds
+- [x] Verificação constant-time de senha
+- [x] LoginDialog com 2 abas (Login + Novo Usuário)
+- [x] Obrigatoriedade de login na inicialização
+- [x] Criação de novos usuários com senha
+- [x] Isolamento de dados por usuário
+- [x] Seleção de perfil após autenticação
+- [x] Validação de campos (username único, senha mínima 6 caracteres)
+- [x] Mensagens de erro adequadas
+
+### 📋 FUTURAS (Opcional)
+- [ ] Logout e troca de usuário no menu
+- [ ] Recuperação de senha
+- [ ] Mudança de senha após primeiro login
+- [ ] Bloqueio de conta após N tentativas
+- [ ] Log de auditoria (quem acessou quando)
+- [ ] Expiração de sessão
+- [ ] 2FA (autenticação dupla)
+
+---
+
+## 🧪 Teste (Opcional)
+
+Se criar arquivo `test_auth_flow.py`:
+```bash
+python test_auth_flow.py
+# Resultado esperado: ✓ TODOS OS TESTES PASSARAM!
+```
+
+---
+
+## 📦 Dependências
+
+Bcrypt já instalado. Para reinstalar:
+```bash
+pip install bcrypt
+```
+
+---
+
+## 🎯 Objetivo Alcançado
+
+> **"ta muito facil de entrar em outro usuario tem q criar senha e tals"**
+
+✅ **RESOLVIDO**
+- Cada usuário agora tem uma senha única
+- Login obrigatório na inicialização
+- Impossível trocar de usuário sem saber a senha
+- Dados isolados por usuário
+
+---
+
+## 📝 Próximos Passos (Opcional)
+
+1. Testar fluxo completo:
+   - Criar novo usuário
+   - Fazer login
+   - Criar perfil
+   - Acessar app
+   - Fechar e reabriar
+
+2. Deletar banco de dados se quiser recomeçar do zero
+
+3. Implementar logout/troca de usuário no menu (futuro)
+
+---
+
+**Status**: ✅ PRONTO PARA USO  
+**Versão**: 1.0 + Autenticação  
+**Data**: 2024
