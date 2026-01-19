@@ -4,8 +4,16 @@
 ![PyQt6](https://img.shields.io/badge/PyQt6-6.0+-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+![Release](https://img.shields.io/github/v/release/VictoAzam/GEFIPS)
+![Downloads](https://img.shields.io/github/downloads/VictoAzam/GEFIPS/total)
 
 Sistema completo de gestão financeira pessoal desenvolvido em Python com interface gráfica moderna.
+
+## 📥 Download
+
+**[⬇️ Baixar GEFIPS v1.0.0 (Windows)](https://github.com/VictoAzam/GEFIPS/releases/latest/download/GEFIPS.exe)**
+
+Faça o download do executável e comece a usar imediatamente, sem necessidade de instalar Python ou dependências!
 
 ## 📋 Sobre o Projeto
 
