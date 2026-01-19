@@ -11,7 +11,7 @@ Sistema completo de gestão financeira pessoal desenvolvido em Python com interf
 
 ## 📥 Download
 
-**[⬇️ Baixar GEFIPS v1.0.0 (Windows)](https://github.com/VictoAzam/GEFIPS/releases/latest/download/GEFIPS.exe)**
+**[⬇️ Baixar GEFIPS v1.0.0 (Windows)](https://github.com/VictoAzam/GEFIPS/releases/tag/v1.0.0)**
 
 Faça o download do executável e comece a usar imediatamente, sem necessidade de instalar Python ou dependências!
 
