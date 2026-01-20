@@ -1,4 +1,4 @@
-# 💰 GEFIPS - Gestor Financeira Pessoal Simpes
+# 💰 GEFIPS - Gestor Financeiro Pessoal Simpes
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![PyQt6](https://img.shields.io/badge/PyQt6-6.0+-green.svg)
